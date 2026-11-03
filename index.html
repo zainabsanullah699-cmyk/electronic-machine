@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElectroCore Solutions - Advanced Industrial Machines</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <style>
+    :root {
+      --primary-blue: #0d6efd;
+      --accent-cyan: #0dcaf0;
+      --dark-navy: #0f172a;
+      --slate-gray: #475569;
+      --light-bg: #f8fafc;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--light-bg);
+      color: #334155;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Single Page App Section Routing */
+    .page-section {
+      display: none;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Navbar Customization */
+    .navbar {
+      background-color: var(--dark-navy) !important;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-link {
+      cursor: pointer;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link.active {
+      color: var(--accent-cyan) !important;
+      border-bottom: 2px solid var(--accent-cyan);
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--dark-navy) 0%, #1e293b 100%);
+      color: white;
+      padding: 100px 0 80px;
+      border-bottom: 4px solid var(--primary-blue);
+    }
+
+    /* Machine Cards */
+    .machine-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: #ffffff;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .machine-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.15);
+      border-color: var(--primary-blue);
+    }
+
+    .card-icon-wrapper {
+      width: 70px;
+      height: 70px;
+      border-radius: 12px;
+      background: rgba(13, 110, 253, 0.1);
+      color: var(--primary-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-weight: 700;
+      color: var(--dark-navy);
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--primary-blue);
+      border-radius: 2px;
+    }
+
+    .section-title.center::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Spec Sheets & Badges */
+    .spec-badge {
+      font-size: 0.8rem;
+      background: #e2e8f0;
+      color: var(--slate-gray);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center fw-bold text-white fs-4" onclick="navigateTo('home')">
+        <i class="bi bi-cpu text-info me-2 fs-3"></i>ElectroCore
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" id="nav-home" onclick="navigateTo('home')">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-machines" onclick="navigateTo('machines')">Machines & Catalog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-tech" onclick="navigateTo('tech')">Technology</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-about" onclick="navigateTo('about')">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-contact" onclick="navigateTo('contact')">Contact</a>
+          </li>
+        </ul>
+        <button class="btn btn-outline-info ms-lg-3 btn-sm" onclick="navigateTo('contact')">Get a Quote</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HOME PAGE ==================== -->
+  <section id="home" class="page-section active">
+    <!-- Hero Section -->
+    <header class="hero-banner">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <span class="badge bg-primary-subtle text-info border border-info mb-3 px-3 py-2 rounded-pill">Next-Gen Industrial Hardware</span>
+            <h1 class="display-4 fw-bold text-white mb-3">High-Precision Electronic Machinery</h1>
+            <p class="lead text-light opacity-75 mb-4">Engineering automated CNC systems, SMT surface pick-and-place lines, and industrial PCB fabrication units built for zero-fault manufacturing operations.</p>
+            <div class="d-flex gap-3">
+              <button class="btn btn-primary btn-lg px-4" onclick="navigateTo('machines')">Browse Machines</button>
+              <button class="btn btn-outline-light btn-lg px-4" onclick="navigateTo('tech')">View Architecture</button>
+            </div>
+          </div>
+          <div class="col-lg-6 text-center">
+            <div class="p-4 rounded-4 bg-dark bg-opacity-50 border border-secondary border-opacity-25 shadow-lg">
+              <i class="bi bi-motherboard text-info display-1 mb-3 d-block"></i>
+              <div class="row text-white text-center g-3">
+                <div class="col-4">
+                  <div class="fs-3 fw-bold text-info">0.01mm</div>
+                  <div class="small text-muted">Tolerance</div>
+                </div>
+                <div class="col-4">
+                  <div class="fs-3 fw-bold text-info">99.9%</div>
+                  <div class="small text-muted">Uptime</div>
+                </div>
+                <div class="col-4">
+                  <div class="fs-3 fw-bold text-info">ISO 9001</div>
+                  <div class="small text-muted">Certified</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Featured Machines Section -->
+    <div class="container my-5 py-4">
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+          <h2 class="section-title">Flagship Machines</h2>
+          <p class="text-muted mb-0">Discover our top-tier automated industrial equipment.</p>
+        </div>
+        <button class="btn btn-link text-decoration-none text-primary fw-semibold" onclick="navigateTo('machines')">View All Equipment &rarr;</button>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 machine-card p-4">
+            <div class="card-icon-wrapper mb-3">
+              <i class="bi bi-robot"></i>
+            </div>
+            <h5 class="fw-bold">Pulse-X6 Pick & Place</h5>
+            <p class="text-muted small flex-grow-1">High-speed surface-mount technology (SMT) system for ultra-dense circuit board assembly.</p>
+            <div class="border-top pt-3 mt-2 d-flex justify-content-between align-items-center">
+              <span class="fw-bold text-dark">$45,000</span>
+              <button class="btn btn-sm btn-outline-primary" onclick="openSpecModal('Pulse-X6 Pick & Place', '38,000 CPH placement speed', 'SMT Components down to 01005', 'Dual-vision optics system')">Specs</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 machine-card p-4">
+            <div class="card-icon-wrapper mb-3">
+              <i class="bi bi-printer"></i>
+            </div>
+            <h5 class="fw-bold">CircuitJet 3D PCB Printer</h5>
+            <p class="text-muted small flex-grow-1">Additive electronics fabrication machine for multi-layer rapid prototype printing.</p>
+            <div class="border-top pt-3 mt-2 d-flex justify-content-between align-items-center">
+              <span class="fw-bold text-dark">$28,500</span>
+              <button class="btn btn-sm btn-outline-primary" onclick="openSpecModal('CircuitJet 3D Printer', 'Conductive Silver Nanoparticle Ink', 'Min trace width: 50 μm', 'Integrated UV Curing Laser')">Specs</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 machine-card p-4">
+            <div class="card-icon-wrapper mb-3">
+              <i class="bi bi-cpu"></i>
+            </div>
+            <h5 class="fw-bold">OptiCut 5-Axis CNC Mill</h5>
+            <p class="text-muted small flex-grow-1">Precision micro-milling machine built for aluminum chassis and heat-sink enclosures.</p>
+            <div class="border-top pt-3 mt-2 d-flex justify-content-between align-items-center">
+              <span class="fw-bold text-dark">$62,000</span>
+              <button class="btn btn-sm btn-outline-primary" onclick="openSpecModal('OptiCut 5-Axis CNC Mill', '60,000 RPM Air-Bearing Spindle', 'Auto Tool Changer (24 Slots)', 'Closed-Loop Optical Encoders')">Specs</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MACHINES CATALOG PAGE ==================== -->
+  <section id="machines" class="page-section container my-5">
+    <div class="text-center mb-5">
+      <h2 class="section-title center mx-auto">Equipment Catalog</h2>
+      <p class="text-muted">Explore our complete lineup of electronic manufacturing machinery.</p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="d-flex justify-content-center gap-2 mb-4">
+      <button class="btn btn-primary btn-sm rounded-pill px-3">All Categories</button>
+      <button class="btn btn-outline-secondary btn-sm rounded-pill px-3">SMT Line</button>
+      <button class="btn btn-outline-secondary btn-sm rounded-pill px-3">Laser & CNC</button>
+      <button class="btn btn-outline-secondary btn-sm rounded-pill px-3">Inspection (AOI)</button>
+    </div>
+
+    <div class="row g-4">
+      <!-- Item 1 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 machine-card p-4">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div class="card-icon-wrapper">
+              <i class="bi bi-robot"></i>
+            </div>
+            <span class="badge bg-success-subtle text-success">In Stock</span>
+          </div>
+          <h5 class="fw-bold">Pulse-X6 Pick & Place</h5>
+          <p class="text-muted small">Automated high-precision SMT system with dual vision alignment.</p>
+          <div class="mb-3">
+            <span class="spec-badge">38k CPH</span>
+            <span class="spec-badge">Dual Camera</span>
+            <span class="spec-badge">Feeder Bay</span>
+          </div>
+          <div class="mt-auto border-top pt-3 d-flex justify-content-between align-items-center">
+            <span class="fs-5 fw-bold text-dark">$45,000</span>
+            <button class="btn btn-sm btn-primary" onclick="navigateTo('contact')">Inquire</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 machine-card p-4">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div class="card-icon-wrapper">
+              <i class="bi bi-printer"></i>
+            </div>
+            <span class="badge bg-success-subtle text-success">In Stock</span>
+          </div>
+          <h5 class="fw-bold">CircuitJet 3D PCB Printer</h5>
+          <p class="text-muted small">Multi-layer additive printer for prototype printed circuit boards.</p>
+          <div class="mb-3">
+            <span class="spec-badge">50μm Traces</span>
+            <span class="spec-badge">Silver Ink</span>
+            <span class="spec-badge">UV Cure</span>
+          </div>
+          <div class="mt-auto border-top pt-3 d-flex justify-content-between align-items-center">
+            <span class="fs-5 fw-bold text-dark">$28,500</span>
+            <button class="btn btn-sm btn-primary" onclick="navigateTo('contact')">Inquire</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 machine-card p-4">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div class="card-icon-wrapper">
+              <i class="bi bi-cpu"></i>
+            </div>
+            <span class="badge bg-warning-subtle text-warning">Built to Order</span>
+          </div>
+          <h5 class="fw-bold">OptiCut 5-Axis CNC Mill</h5>
+          <p class="text-muted small">Heavy-duty micro-milling center for custom heat sinks and shields.</p>
+          <div class="mb-3">
+            <span class="spec-badge">60k RPM</span>
+            <span class="spec-badge">Air-Bearing</span>
+            <span class="spec-badge">24 Tool ATC</span>
+          </div>
+          <div class="mt-auto border-top pt-3 d-flex justify-content-between align-items-center">
+            <span class="fs-5 fw-bold text-dark">$62,000</span>
+            <button class="btn btn-sm btn-primary" onclick="navigateTo('contact')">Inquire</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 machine-card p-4">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div class="card-icon-wrapper">
+              <i class="bi bi-eye"></i>
+            </div>
+            <span class="badge bg-success-subtle text-success">In Stock</span>
+          </div>
+          <h5 class="fw-bold">VisionInspector 3D AOI</h5>
+          <p class="text-muted small">Automated Optical Inspection machine with AI defect detection algorithms.</p>
+          <div class="mb-3">
+            <span class="spec-badge">12MP Cameras</span>
+            <span class="spec-badge">AI Defect Model</span>
+            <span class="spec-badge">Real-Time</span>
+          </div>
+          <div class="mt-auto border-top pt-3 d-flex justify-content-between align-items-center">
+            <span class="fs-5 fw-bold text-dark">$34,000</span>
+            <button class="btn btn-sm btn-primary" onclick="navigateTo('contact')">Inquire</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 machine-card p-4">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div class="card-icon-wrapper">
+              <i class="bi bi-lightning-charge"></i>
+            </div>
+            <span class="badge bg-success-subtle text-success">In Stock</span>
+          </div>
+          <h5 class="fw-bold">WaveSolder Pro-8</h5>
+          <p class="text-muted small">Convection reflow soldering oven with 8 independent heating zones.</p>
+          <div class="mb-3">
+            <span class="spec-badge">8 Zones</span>
+            <span class="spec-badge">Lead-Free</span>
+            <span class="spec-badge">N2 Inert</span>
+          </div>
+          <div class="mt-auto border-top pt-3 d-flex justify-content-between align-items-center">
+            <span class="fs-5 fw-bold text-dark">$19,800</span>
+            <button class="btn btn-sm btn-primary" onclick="navigateTo('contact')">Inquire</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 machine-card p-4">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div class="card-icon-wrapper">
+              <i class="bi bi-gear-wide-connected"></i>
+            </div>
+            <span class="badge bg-danger-subtle text-danger">Backorder</span>
+          </div>
+          <h5 class="fw-bold">LaserDep 200 Wire Bonder</h5>
+          <p class="text-muted small">Ultrasonic micro-wire bonding machine for semiconductor packaging.</p>
+          <div class="mb-3">
+            <span class="spec-badge">Gold/Al Wire</span>
+            <span class="spec-badge">15μm Pitch</span>
+            <span class="spec-badge">Auto Loop</span>
+          </div>
+          <div class="mt-auto border-top pt-3 d-flex justify-content-between align-items-center">
+            <span class="fs-5 fw-bold text-dark">$51,200</span>
+            <button class="btn btn-sm btn-primary" onclick="navigateTo('contact')">Inquire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TECHNOLOGY PAGE ==================== -->
+  <section id="tech" class="page-section container my-5">
+    <div class="text-center mb-5">
+      <h2 class="section-title center mx-auto">Hardware & System Architecture</h2>
+      <p class="text-muted">How our electronic machinery delivers industrial-grade precision.</p>
+    </div>
+
+    <div class="row align-items-center g-5 mb-5">
+      <div class="col-lg-6">
+        <h3 class="fw-bold text-dark mb-3">Closed-Loop Servo Motion Control</h3>
+        <p class="text-secondary">Our machines utilize optical linear encoders paired with direct-drive linear motors. This completely eliminates mechanical backlash, allowing exact positional accuracy down to sub-micron scales during high-speed placement and milling.</p>
+        <ul class="list-unstyled text-secondary">
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Real-time error correction up to 10,000 times per second</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Thermal compensation sensors to offset metal expansion</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Zero maintenance magnetic drive shafts</li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <div class="p-4 bg-white rounded-3 shadow-sm border">
+          <h5 class="fw-bold mb-3"><i class="bi bi-speedometer2 text-primary me-2"></i>Performance Benchmark</h5>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between small text-muted mb-1">
+              <span>Placement Accuracy (SMT)</span>
+              <span class="fw-bold text-dark">99.98%</span>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-primary" style="width: 99.8%"></div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between small text-muted mb-1">
+              <span>Thermal Stability</span>
+              <span class="fw-bold text-dark">96.5%</span>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-info" style="width: 96.5%"></div>
+            </div>
+          </div>
+          <div class="mb-0">
+            <div class="d-flex justify-content-between small text-muted mb-1">
+              <span>Power Efficiency vs Industry Standard</span>
+              <span class="fw-bold text-dark">+35% Efficient</span>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-success" style="width: 85%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT US PAGE ==================== -->
+  <section id="about" class="page-section container my-5">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <h2 class="section-title mb-4">Engineering the Future of Automation</h2>
+        <p class="text-secondary lead">Founded in 2014, ElectroCore has been at the forefront of high-precision electronic equipment engineering.</p>
+        <p class="text-secondary">We design and manufacture machines that empower semiconductor foundries, electronics prototyping labs, and large-scale manufacturing facilities worldwide. Every machine is built in ISO-certified cleanrooms and tested to withstand continuous 24/7 manufacturing operations.</p>
+      </div>
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="p-4 bg-white rounded-3 shadow-sm border text-center">
+              <i class="bi bi-globe display-5 text-primary mb-2"></i>
+              <h3 class="fw-bold text-dark">45+</h3>
+              <p class="text-muted small mb-0">Countries Exported</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-4 bg-white rounded-3 shadow-sm border text-center">
+              <i class="bi bi-buildings display-5 text-primary mb-2"></i>
+              <h3 class="fw-bold text-dark">1,200+</h3>
+              <p class="text-muted small mb-0">Units Deployed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT PAGE ==================== -->
+  <section id="contact" class="page-section container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow-sm border-0 p-4 p-md-5">
+          <div class="text-center mb-4">
+            <h2 class="section-title center mx-auto">Request Machine Quote</h2>
+            <p class="text-muted">Fill in your production details to receive a full technical specification sheet and pricing.</p>
+          </div>
+
+          <!-- Alert message dynamic display -->
+          <div id="formAlert" class="alert alert-success d-none" role="alert">
+            Thank you! Your inquiry has been logged. A sales engineer will contact you shortly.
+          </div>
+
+          <form id="quoteForm" onsubmit="handleFormSubmit(event)">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="fullName" class="form-label fw-semibold">Full Name</label>
+                <input type="text" class="form-control" id="fullName" required placeholder="Jane Doe">
+              </div>
+              <div class="col-md-6">
+                <label for="workEmail" class="form-label fw-semibold">Work Email</label>
+                <input type="email" class="form-control" id="workEmail" required placeholder="jane@company.com">
+              </div>
+              <div class="col-md-12">
+                <label for="machineSelect" class="form-label fw-semibold">Target Machinery</label>
+                <select class="form-select" id="machineSelect" required>
+                  <option value="" selected disabled>Select Machine...</option>
+                  <option value="Pulse-X6">Pulse-X6 Pick & Place System</option>
+                  <option value="CircuitJet">CircuitJet 3D PCB Printer</option>
+                  <option value="OptiCut">OptiCut 5-Axis CNC Mill</option>
+                  <option value="VisionInspector">VisionInspector 3D AOI</option>
+                  <option value="Custom">Custom Line Integration</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="message" class="form-label fw-semibold">Production Requirements</label>
+                <textarea class="form-control" id="message" rows="4" placeholder="Detail your monthly volume, target tolerances, or facility power setup..."></textarea>
+              </div>
+              <div class="col-12 text-center mt-4">
+                <button type="submit" class="btn btn-primary btn-lg px-5">Submit Request</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-auto bg-dark text-white pt-5 pb-4 border-top border-secondary border-opacity-25">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <h5 class="fw-bold text-white d-flex align-items-center">
+            <i class="bi bi-cpu text-info me-2"></i>ElectroCore Solutions
+          </h5>
+          <p class="text-muted small pe-md-4">Providing industrial electronics assembly hardware, automated pick-and-place robotics, and high-precision CNC tooling worldwide.</p>
+        </div>
+        <div class="col-md-3">
+          <h6 class="fw-bold text-light mb-3">Quick Links</h6>
+          <ul class="list-unstyled text-muted small">
+            <li class="mb-2"><a class="text-decoration-none text-muted" onclick="navigateTo('home')">Home</a></li>
+            <li class="mb-2"><a class="text-decoration-none text-muted" onclick="navigateTo('machines')">Equipment Catalog</a></li>
+            <li class="mb-2"><a class="text-decoration-none text-muted" onclick="navigateTo('tech')">System Architecture</a></li>
+            <li class="mb-2"><a class="text-decoration-none text-muted" onclick="navigateTo('contact')">Request Pricing</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h6 class="fw-bold text-light mb-3">Global Headquarters</h6>
+          <p class="text-muted small mb-1"><i class="bi bi-geo-alt me-2 text-info"></i>100 Automation Parkway, Tech District</p>
+          <p class="text-muted small mb-1"><i class="bi bi-envelope me-2 text-info"></i>contact@electrocore-machinery.com</p>
+          <p class="text-muted small"><i class="bi bi-telephone me-2 text-info"></i>+1 (800) 555-0199</p>
+        </div>
+      </div>
+      <hr class="my-4 border-secondary border-opacity-25">
+      <div class="text-center text-muted small">
+        &copy; 2026 ElectroCore Solutions Inc. All rights reserved.
+      </div>
+    </div>
